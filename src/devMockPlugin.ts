@@ -210,9 +210,14 @@ export function devMockPlugin(): Plugin {
             }))
             .filter((c) => c.products.length > 0);
 
+          const banners = state.banners
+            .filter((b) => b.active)
+            .sort((a, b) => a.sort_order - b.sort_order);
+
           return json({
             settings: state.settings,
             categories,
+            banners,
           });
         }
 

@@ -40,7 +40,7 @@ export default function CategoryChips({ categories, active, onSelect }: Props) {
     el?.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
   }, [active]);
 
-  const total = categories.reduce((n, c) => n + c.products.length, 0);
+  const total = (categories || []).reduce((n, c) => n + (c.products?.length ?? 0), 0);
 
   return (
     <div className={styles.list} ref={listRef} role="tablist" aria-label="Categorias">
@@ -59,7 +59,7 @@ export default function CategoryChips({ categories, active, onSelect }: Props) {
         <span className={styles.count}>{total}</span>
       </button>
 
-      {categories.map((c) => (
+      {(categories || []).map((c) => (
         <button
           key={c.id}
           type="button"
@@ -73,7 +73,7 @@ export default function CategoryChips({ categories, active, onSelect }: Props) {
             <SmartImage src={c.image_url} alt="" />
           </span>
           <CategoryName name={c.name} />
-          <span className={styles.count}>{c.products.length}</span>
+          <span className={styles.count}>{c.products?.length ?? 0}</span>
         </button>
       ))}
     </div>

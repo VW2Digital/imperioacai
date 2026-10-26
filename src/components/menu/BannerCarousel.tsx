@@ -6,11 +6,12 @@ import styles from "./BannerCarousel.module.css";
 
 const INTERVAL = 4000;
 
-export default function BannerCarousel({ banners }: { banners: Banner[] }) {
+export default function BannerCarousel({ banners = [] }: { banners?: Banner[] }) {
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
   const touchStart = useRef<number | null>(null);
-  const total = banners.length;
+  const list = banners || [];
+  const total = list.length;
 
   const go = useCallback((i: number) => setIndex(((i % total) + total) % total), [total]);
 
@@ -52,7 +53,7 @@ export default function BannerCarousel({ banners }: { banners: Banner[] }) {
             transform: `translate3d(-${(index * 100) / total}%, 0, 0)`,
           }}
         >
-          {banners.map((b, i) => {
+          {list.map((b, i) => {
             const img = (
               <SmartImage
                 src={b.image_url}
@@ -84,7 +85,7 @@ export default function BannerCarousel({ banners }: { banners: Banner[] }) {
 
       {total > 1 && (
         <div className={styles.dots} role="tablist" aria-label="Slides">
-          {banners.map((b, i) => (
+          {list.map((b, i) => (
             <button
               key={b.id}
               role="tab"

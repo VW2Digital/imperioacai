@@ -42,21 +42,24 @@ export default function MenuPage() {
   // Filtra por busca (ignora acentos)
   const term = normalize(search.trim());
   const visible: MenuCategory[] = useMemo(() => {
-    return categories
-      .map((c) => ({
-        ...c,
-        products: term
-          ? c.products.filter((p) =>
-              normalize(`${p.name} ${p.description ?? ""} ${p.price}`).includes(term)
-            )
-          : c.products,
-      }))
-      .filter((c) => c.products.length > 0);
+    return (categories || [])
+      .map((c) => {
+        const prods = c.products || [];
+        return {
+          ...c,
+          products: term
+            ? prods.filter((p) =>
+                normalize(`${p.name} ${p.description ?? ""} ${p.price}`).includes(term)
+              )
+            : prods,
+        };
+      })
+      .filter((c) => (c.products?.length ?? 0) > 0);
   }, [categories, term]);
 
-  const totalVisible = visible.reduce((acc, c) => acc + c.products.length, 0);
+  const totalVisible = visible.reduce((acc, c) => acc + (c.products?.length ?? 0), 0);
   const newArrivals = useMemo(
-    () => categories.flatMap((c) => c.products.filter((p) => p.is_new)).slice(0, 8),
+    () => (categories || []).flatMap((c) => (c.products || []).filter((p) => p.is_new)).slice(0, 8),
     [categories]
   );
 
@@ -135,9 +138,9 @@ export default function MenuPage() {
             <SearchBar value={search} onChange={setSearch} />
           </div>
 
-          {!term && menu.data.banners.length > 0 && (
+          {!term && (menu.data.banners?.length ?? 0) > 0 && (
             <section className={`container ${styles.banners}`} aria-label={settings.new_arrivals_title ?? "Novidades"}>
-              <BannerCarousel banners={menu.data.banners} />
+              <BannerCarousel banners={menu.data.banners || []} />
             </section>
           )}
 
@@ -181,10 +184,10 @@ export default function MenuPage() {
               >
                 <div className={styles.sectionHead}>
                   <h2>{cat.name}</h2>
-                  <span>{cat.products.length} {cat.products.length === 1 ? "item" : "itens"}</span>
+                  <span>{(cat.products?.length ?? 0)} {(cat.products?.length ?? 0) === 1 ? "item" : "itens"}</span>
                 </div>
                 <div className={styles.grid}>
-                  {cat.products.map((p) => (
+                  {(cat.products || []).map((p) => (
                     <DishCard key={p.id} product={p} onClick={() => openDish(p)} />
                   ))}
                 </div>
