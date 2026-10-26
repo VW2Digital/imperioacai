@@ -19,7 +19,7 @@ export default function DashboardPage() {
     { to: "/admin/links", label: "Links ativos", value: s?.links ?? "—", icon: Link2 },
   ];
 
-  const max = Math.max(1, ...(s?.by_category.map((c) => c.total) ?? [1]));
+  const max = Math.max(1, ...(s?.by_category?.map((c) => c.total) ?? [1]));
 
   return (
     <>
@@ -39,7 +39,7 @@ export default function DashboardPage() {
 
       <Card className={styles.chart}>
         <h2>Pratos ativos por categoria</h2>
-        {s?.by_category.map((c) => (
+        {s?.by_category?.map((c) => (
           <div key={c.id} className={styles.bar}>
             <span>{c.name}</span>
             <div className={styles.track}>

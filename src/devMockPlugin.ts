@@ -1,6 +1,4 @@
 import type { Plugin } from "vite";
-import fs from "node:fs";
-import path from "node:path";
 
 interface Product {
   id: number;
@@ -116,7 +114,7 @@ export function devMockPlugin(): Plugin {
           return next();
         }
 
-        const [pathname, search] = urlStr.split("?");
+        const pathname = urlStr.split("?")[0];
         const method = (req.method || "GET").toUpperCase();
 
         const json = (data: any, status = 200) => {
@@ -224,27 +222,63 @@ export function devMockPlugin(): Plugin {
 
         // ---------- ADMIN ----------
         if (pathname === "/data/admin/stats" && method === "GET") {
+          const by_category = state.categories.map((c) => ({
+            id: c.id,
+            name: c.name,
+            total: state.products.filter((p) => p.category_id === c.id && p.active).length,
+          }));
+
           return json({
-            categories: state.categories.length,
             products: state.products.length,
-            banners: state.banners.length,
-            links: state.links.length,
+            products_active: state.products.filter((p) => p.active).length,
+            products_new: state.products.filter((p) => p.is_new && p.active).length,
+            categories: state.categories.length,
+            banners: state.banners.filter((b) => b.active).length,
+            links: state.links.filter((l) => l.active).length,
+            by_category,
           });
         }
 
         if (pathname === "/data/admin/insights" && method === "GET") {
+          const series = [
+            { date: "2026-10-20", visits: 45, visitors: 30, clicks: 23 },
+            { date: "2026-10-21", visits: 52, visitors: 35, clicks: 31 },
+            { date: "2026-10-22", visits: 48, visitors: 32, clicks: 27 },
+            { date: "2026-10-23", visits: 60, visitors: 40, clicks: 35 },
+            { date: "2026-10-24", visits: 72, visitors: 48, clicks: 40 },
+            { date: "2026-10-25", visits: 65, visitors: 42, clicks: 33 },
+            { date: "2026-10-26", visits: 58, visitors: 39, clicks: 29 },
+          ];
+
           return json({
-            visits: 342,
-            clicks: 189,
-            by_day: [
-              { date: "2026-10-20", visits: 45, clicks: 23 },
-              { date: "2026-10-21", visits: 52, clicks: 31 },
-              { date: "2026-10-22", visits: 48, clicks: 27 },
-              { date: "2026-10-23", visits: 60, clicks: 35 },
-              { date: "2026-10-24", visits: 72, clicks: 40 },
-              { date: "2026-10-25", visits: 65, clicks: 33 },
-            ],
-            top_links: state.links.map((l) => ({ label: l.label, clicks: 25 })),
+            range: "7d",
+            from: "2026-10-20",
+            to: "2026-10-26",
+            link_to_menu: 85,
+            links: {
+              visits: 400,
+              visitors: 266,
+              clicks: 218,
+              series,
+              clicks_by_target: state.links.map((l) => ({
+                target_type: "link",
+                target_id: l.id,
+                label: l.label,
+                clicks: 35,
+              })),
+            },
+            menu: {
+              visits: 350,
+              visitors: 240,
+              clicks: 180,
+              series,
+              clicks_by_target: state.products.slice(0, 5).map((p) => ({
+                target_type: "product",
+                target_id: p.id,
+                label: p.name,
+                clicks: 22,
+              })),
+            },
           });
         }
 
