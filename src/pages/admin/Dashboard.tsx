@@ -12,14 +12,14 @@ export default function DashboardPage() {
   const s = stats.data;
 
   const cards = [
-    { to: "/admin/pratos", label: "Pratos ativos", value: s ? `${s.products_active}/${s.products}` : "—", icon: Utensils },
+    { to: "/admin/pratos", label: "Pratos ativos", value: s ? `${s.products_active ?? 0}/${s.products ?? 0}` : "—", icon: Utensils },
     { to: "/admin/pratos", label: "Marcados como novidade", value: s?.products_new ?? "—", icon: Sparkles },
     { to: "/admin/categorias", label: "Categorias", value: s?.categories ?? "—", icon: Tags },
     { to: "/admin/banners", label: "Banners ativos", value: s?.banners ?? "—", icon: ImageIcon },
     { to: "/admin/links", label: "Links ativos", value: s?.links ?? "—", icon: Link2 },
   ];
 
-  const max = Math.max(1, ...(s?.by_category?.map((c) => c.total) ?? [1]));
+  const max = Math.max(1, ...(s?.by_category?.map((c) => c.total || 0) ?? [1]));
 
   return (
     <>
@@ -39,15 +39,19 @@ export default function DashboardPage() {
 
       <Card className={styles.chart}>
         <h2>Pratos ativos por categoria</h2>
-        {s?.by_category?.map((c) => (
-          <div key={c.id} className={styles.bar}>
-            <span>{c.name}</span>
-            <div className={styles.track}>
-              <div className={styles.fill} style={{ width: `${(c.total / max) * 100}%` }} />
+        {(!s?.by_category || s.by_category.length === 0) ? (
+          <p style={{ color: "#777", fontSize: "0.9rem", padding: "0.5rem 0" }}>Nenhuma categoria com pratos cadastrada.</p>
+        ) : (
+          s.by_category.map((c) => (
+            <div key={c.id} className={styles.bar}>
+              <span>{c.name}</span>
+              <div className={styles.track}>
+                <div className={styles.fill} style={{ width: `${((c.total || 0) / max) * 100}%` }} />
+              </div>
+              <strong>{c.total ?? 0}</strong>
             </div>
-            <strong>{c.total}</strong>
-          </div>
-        ))}
+          ))
+        )}
       </Card>
     </>
   );

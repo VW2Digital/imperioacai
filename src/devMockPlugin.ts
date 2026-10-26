@@ -144,8 +144,8 @@ export function devMockPlugin(): Plugin {
           const email = (body.email || "").toLowerCase().trim();
           const password = (body.password || "").trim();
 
-          // Aceita admin@imperioacai.com.br com admin123 (ou admin@nospetto.com.br como fallback)
-          if ((email === "admin@imperioacai.com.br" || email === "admin@nospetto.com.br" || email.includes("admin")) && password === "admin123") {
+          // Aceita admin@imperioacai.com.br com admin123 (ou variações no modo de desenvolvimento)
+          if ((email === "admin@imperioacai.com.br" || email.includes("admin")) && (password === "admin123" || password === "admin" || password.length >= 4)) {
             state.authenticated = true;
             res.setHeader("Set-Cookie", "imperioacai_sess=dev_logged_in; Path=/; HttpOnly; SameSite=Lax");
             return json({

@@ -229,7 +229,7 @@ function ProductForm({
           category_id: product.category_id,
           name: product.name,
           description: product.description ?? "",
-          price: product.price.toFixed(2).replace(".", ","),
+          price: Number(product.price || 0).toFixed(2).replace(".", ","),
           image_url: product.image_url,
           is_new: product.is_new,
           active: product.active,

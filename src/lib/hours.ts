@@ -108,6 +108,7 @@ function isListed(day: DayHours) {
 }
 
 function rangeLabel(days: DayHours[]) {
+  if (!days || days.length === 0) return "";
   const full = WEEK.find((item) => item.id === days[0].day)?.label ?? days[0].day;
   if (days.length === 1) return full;
   const start = SHORT[days[0].day];

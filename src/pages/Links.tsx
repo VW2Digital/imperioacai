@@ -50,7 +50,9 @@ export default function LinksPage() {
     trackView("links");
   }, []);
 
-  const ordered = [...(links.data ?? [])].sort((a, b) => Number(b.is_primary) - Number(a.is_primary));
+  const ordered = [...(links.data ?? [])]
+    .filter((l) => l.active !== false)
+    .sort((a, b) => Number(b.is_primary) - Number(a.is_primary));
 
   return (
     <main className={styles.page}>

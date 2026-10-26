@@ -30,22 +30,26 @@ function formatNumber(value: number) {
   return value.toLocaleString("pt-BR");
 }
 
-function formatDay(iso: string) {
-  const [year, month, day] = iso.split("-").map(Number);
+function formatDay(iso?: string) {
+  if (!iso) return "";
+  const parts = iso.split("-").map(Number);
+  if (parts.length < 3 || isNaN(parts[0])) return iso;
+  const [year, month, day] = parts;
   return new Date(year, (month ?? 1) - 1, day)
     .toLocaleDateString("pt-BR", { day: "2-digit", month: "short" })
     .replace(".", "");
 }
 
-function Chart({ series }: { series: InsightSurface["series"] }) {
-  const max = Math.max(1, ...series.map((point) => Math.max(point.visits, point.clicks)));
-  const step = series.length > 60 ? 14 : series.length > 14 ? 5 : 1;
+function Chart({ series = [] }: { series?: InsightSurface["series"] }) {
+  const list = series || [];
+  const max = Math.max(1, ...list.map((point) => Math.max(point.visits || 0, point.clicks || 0)));
+  const step = list.length > 60 ? 14 : list.length > 14 ? 5 : 1;
 
   return (
     <div className={styles.chart} role="img" aria-label="Visitas e cliques por dia">
       <div className={styles.chartScroll}>
-        {series.map((point, index) => {
-          const showLabel = index === series.length - 1 || index % step === 0;
+        {list.map((point, index) => {
+          const showLabel = index === list.length - 1 || index % step === 0;
           return (
             <div key={point.date} className={styles.day} title={`${formatDay(point.date)}: ${formatNumber(point.visits)} visitas, ${formatNumber(point.clicks)} cliques`}>
               <div className={styles.bars}>
@@ -67,16 +71,17 @@ function Chart({ series }: { series: InsightSurface["series"] }) {
   );
 }
 
-function Ranking({ title, items }: { title: string; items: InsightClick[] }) {
-  const max = Math.max(1, ...items.map((item) => item.clicks));
+function Ranking({ title, items = [] }: { title: string; items?: InsightClick[] }) {
+  const list = items || [];
+  const max = Math.max(1, ...list.map((item) => item.clicks || 0));
   return (
     <Card className={styles.ranking}>
       <h3>{title}</h3>
-      {items.length === 0 ? (
+      {list.length === 0 ? (
         <p className={styles.empty}>Nenhum clique neste período.</p>
       ) : (
         <ul>
-          {items.map((item) => {
+          {list.map((item) => {
             const typeName = TYPE_LABEL[item.target_type] ?? item.target_type;
             return (
               <li key={`${item.target_type}-${item.target_id ?? item.label}`}>
@@ -109,10 +114,13 @@ function SurfaceBlock({
   title: string;
   hint: string;
   icon: typeof Link2;
-  data: InsightSurface;
+  data?: InsightSurface;
   children?: ReactNode;
 }) {
-  const perVisit = data.visits > 0 ? data.clicks / data.visits : null;
+  if (!data) return null;
+  const visits = data.visits || 0;
+  const clicks = data.clicks || 0;
+  const perVisit = visits > 0 ? clicks / visits : null;
   return (
     <section className={styles.surface}>
       <header className={styles.surfaceHead}>
@@ -166,8 +174,8 @@ export default function InsightsPage() {
   });
 
   const data = insights.data;
-  const dishes = data?.menu.clicks_by_target.filter((item) => item.target_type === "product") ?? [];
-  const menuOther = data?.menu.clicks_by_target.filter((item) => item.target_type !== "product") ?? [];
+  const dishes = data?.menu?.clicks_by_target?.filter((item) => item.target_type === "product") ?? [];
+  const menuOther = data?.menu?.clicks_by_target?.filter((item) => item.target_type !== "product") ?? [];
 
   return (
     <div aria-busy={insights.isFetching}>
@@ -204,31 +212,35 @@ export default function InsightsPage() {
 
       {data && (
         <>
-          <SurfaceBlock
-            title="Árvore de links"
-            hint="Página inicial, com os botões e os ícones de contato."
-            icon={Link2}
-            data={data.links}
-          >
-            <Ranking title="Cliques" items={data.links.clicks_by_target} />
-          </SurfaceBlock>
+          {data.links && (
+            <SurfaceBlock
+              title="Árvore de links"
+              hint="Página inicial, com os botões e os ícones de contato."
+              icon={Link2}
+              data={data.links}
+            >
+              <Ranking title="Cliques" items={data.links.clicks_by_target ?? []} />
+            </SurfaceBlock>
+          )}
 
-          <SurfaceBlock
-            title="Cardápio"
-            hint="Página do cardápio: pratos abertos, banners e contatos."
-            icon={UtensilsCrossed}
-            data={data.menu}
-          >
-            <p className={styles.note}>
-              O botão do cardápio na árvore de links foi clicado{" "}
-              <strong>{formatNumber(data.link_to_menu)}</strong>{" "}
-              {data.link_to_menu === 1 ? "vez" : "vezes"} neste período.
-            </p>
-            <div className={styles.split}>
-              <Ranking title="Pratos mais abertos" items={dishes} />
-              <Ranking title="Banners e contatos" items={menuOther} />
-            </div>
-          </SurfaceBlock>
+          {data.menu && (
+            <SurfaceBlock
+              title="Cardápio"
+              hint="Página do cardápio: pratos abertos, banners e contatos."
+              icon={UtensilsCrossed}
+              data={data.menu}
+            >
+              <p className={styles.note}>
+                O botão do cardápio na árvore de links foi clicado{" "}
+                <strong>{formatNumber(data.link_to_menu ?? 0)}</strong>{" "}
+                {(data.link_to_menu ?? 0) === 1 ? "vez" : "vezes"} neste período.
+              </p>
+              <div className={styles.split}>
+                <Ranking title="Pratos mais abertos" items={dishes} />
+                <Ranking title="Banners e contatos" items={menuOther} />
+              </div>
+            </SurfaceBlock>
+          )}
 
           <p className={styles.footnote}>
             Quem está logado no painel não entra nesses números, para a navegação de quem administra não contar como visita.
