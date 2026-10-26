@@ -1,0 +1,66 @@
+.page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px 16px;
+  background: linear-gradient(160deg, #7a1515 0%, var(--primary) 45%, #4d0d0d 100%);
+}
+
+.card {
+  width: 100%;
+  max-width: 400px;
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  padding: 28px 24px;
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  animation: fadeUp 0.35s ease;
+}
+
+.brand {
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.brand span {
+  display: inline-grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: var(--primary);
+  color: #fff;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+.brand h1 {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.brand p {
+  font-size: 13px;
+  color: var(--text-3);
+}
+
+.error {
+  font-size: 13px;
+  color: var(--danger);
+  background: #fbe6e3;
+  padding: 10px 12px;
+  border-radius: 10px;
+}
+
+.submit {
+  margin-top: 6px;
+  height: 46px;
+}
+
+.back {
+  text-align: center;
+  font-size: 13px;
+  color: var(--text-3);
+}

@@ -1,0 +1,142 @@
+.section {
+  margin-top: 0;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  padding: 16px 18px;
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.head h2 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.head h2 svg {
+  color: var(--primary);
+  flex: none;
+}
+
+.open,
+.closed {
+  flex: none;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.open {
+  background: #e7f6ee;
+  color: var(--success);
+}
+
+.closed {
+  background: var(--surface-2);
+  color: var(--text-3);
+}
+
+.days {
+  display: flex;
+  flex-direction: column;
+}
+
+.days li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 0;
+  border-top: 1px solid var(--border);
+}
+
+.days li:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.days li span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.days li small {
+  padding: 2px 7px;
+  border-radius: var(--radius-pill);
+  background: var(--primary);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.days li strong {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-2);
+  text-align: right;
+  line-height: 1.3;
+}
+
+.today strong {
+  color: var(--primary-dark);
+}
+
+@media (min-width: 768px) {
+  .card {
+    flex-direction: row;
+    align-items: center;
+    gap: 28px;
+    padding: 14px 22px;
+  }
+
+  .head {
+    flex: none;
+  }
+
+  .days {
+    flex: 1;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 0;
+  }
+
+  .days li,
+  .days li:first-child {
+    width: auto;
+    border-top: 0;
+    padding: 0 18px;
+    border-left: 1px solid var(--border);
+  }
+
+  .days li:first-child {
+    padding-left: 0;
+    border-left: 0;
+  }
+
+  .days li strong {
+    text-align: left;
+  }
+}

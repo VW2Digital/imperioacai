@@ -1,0 +1,110 @@
+-- Império Açaí - dados iniciais extraidos do cardapio original
+SET NAMES utf8mb4;
+
+INSERT INTO categories (id, slug, name, image_url, sort_order, active) VALUES
+  (1, 'entradas', 'Entradas', 'https://imperioacai.com.br/wp-content/uploads/2026/07/WhatsApp-Image-2026-07-23-at-15.09.10-1.jpeg', 1, 1),
+  (2, 'espetos-carne', 'Espetos de carne', 'https://imperioacai.com.br/wp-content/uploads/2026/07/ChatGPT-Image-23-de-jul.-de-2026-14_41_27.png', 2, 1),
+  (3, 'espetos-frango', 'Espetos de frango', 'https://imperioacai.com.br/wp-content/uploads/2026/07/ChatGPT-Image-23-de-jul.-de-2026-14_43_47.png', 3, 1),
+  (4, 'cortes-especiais', 'Cortes especiais', 'https://imperioacai.com.br/wp-content/uploads/2026/07/WhatsApp-Image-2026-07-23-at-15.09.11-1.jpeg', 4, 1),
+  (5, 'acompanhamentos', 'Acompanhamentos', 'https://imperioacai.com.br/wp-content/uploads/2026/07/WhatsApp-Image-2026-07-23-at-15.09.11.jpeg', 5, 1),
+  (6, 'bebidas', 'Bebidas', 'https://imperioacai.com.br/wp-content/uploads/2026/07/WhatsApp-Image-2026-07-23-at-15.09.10-2.jpeg', 6, 1),
+  (7, 'sobremesas', 'Sobremesas', 'https://imperioacai.com.br/wp-content/uploads/2026/07/ChatGPT-Image-23-de-jul.-de-2026-15_20_24.png', 7, 1),
+  (8, 'acai', 'Açaí', 'https://imperioacai.com.br/wp-content/uploads/2026/08/ChatGPT-Image-8-de-ago.-de-2026-11_27_35.png', 8, 1);
+
+INSERT INTO products (category_id, name, description, price, image_url, is_new, sort_order, active) VALUES
+  (1, 'Filé c/ Fritas da Casa', 'Filé suculento servido com batatas fritas crocantes, perfeito para quem busca sabor e praticidade.', 35.00, 'https://imperioacai.com.br/wp-content/uploads/2026/07/IMG_9567-scaled.jpg', 0, 1, 1),
+  (1, 'Asinha de frango a passarinho', 'Asinhas de frango crocantes e bem temperadas, servidas no ponto ideal.', 27.00, 'https://imperioacai.com.br/wp-content/uploads/2026/07/IMG_9538-1-scaled.jpg', 0, 2, 1),
+  (1, 'Pipoca de queijo coalho', 'Pedaços crocantes de queijo coalho, douradinhos e cheios de sabor.', 27.00, 'https://imperioacai.com.br/wp-content/uploads/2026/07/ChatGPT-Image-23-de-jul.-de-2026-17_39_51.png', 0, 3, 1),
+  (1, 'Pão de alho', 'Pão de alho macio e bem recheado, assado no ponto.', 8.00, 'https://imperioacai.com.br/wp-content/uploads/2026/07/IMG_2541-1-scaled.jpg', 0, 4, 1),
+  (1, 'Linguiça de contra filé/ queijo coalho', 'Linguiça de contra filé recheada com queijo coalho.', 32.00, 'https://noespeto.com/wp-content/uploads/2026/07/WhatsApp-Image-2026-07-09-at-10.43.08.jpeg', 0, 5, 1),
+  (1, 'Linguiça suína c/ queijo coalho e azeitonas', 'Linguiça suína recheada com queijo coalho e azeitonas.', 32.00, 'https://noespeto.com/wp-content/uploads/2026/07/WhatsApp-Image-2026-07-09-at-10.43.08.jpeg', 0, 6, 1),
+  (1, 'Tiras de charque', 'Crocante, douradinho e bem temperado, servido com cebola.', 20.00, 'https://imperioacai.com.br/wp-content/uploads/2026/08/IMG_2221-2-scaled.jpg', 1, 7, 1),
+  (1, 'Calabresa', 'Linguiça calabresa frita e dourada, acompanhada de cebola e cheiro-verde.', 15.00, 'https://imperioacai.com.br/wp-content/uploads/2026/08/IMG_2199-scaled.jpg', 1, 8, 1),
+  (2, 'Carne Tradicional Simples', 'Espeto de carne tradicional.', 18.00, 'https://imperioacai.com.br/wp-content/uploads/2026/07/ChatGPT-Image-24-de-jul.-de-2026-14_56_42.png', 0, 1, 1),
+  (2, 'Carne Tradicional Completo', 'Carne tradicional com acompanhamentos completos da casa.', 30.00, 'https://noespeto.com/wp-content/uploads/2026/07/WhatsApp-Image-2026-07-09-at-10.43.08.jpeg', 0, 2, 1),
+  (2, 'Contra Filé Simples', 'Contra filé macio preparado na brasa.', 32.00, 'https://noespeto.com/wp-content/uploads/2026/07/WhatsApp-Image-2026-07-09-at-10.43.08.jpeg', 0, 3, 1),
+  (2, 'Contra Filé Completo', 'Contra filé na brasa com acompanhamentos completos.', 37.00, 'https://noespeto.com/wp-content/uploads/2026/07/WhatsApp-Image-2026-07-09-at-10.43.08.jpeg', 0, 4, 1),
+  (2, 'Picanha completa', 'Picanha suculenta', 45.00, 'https://noespeto.com/wp-content/uploads/2026/07/WhatsApp-Image-2026-07-09-at-10.43.08.jpeg', 0, 5, 1),
+  (2, 'Picanha Simples', 'Picanha macia preparada no ponto da brasa.', 39.00, 'https://noespeto.com/wp-content/uploads/2026/07/WhatsApp-Image-2026-07-09-at-10.43.08.jpeg', 0, 6, 1),
+  (2, 'Filé com Bacon Completo', 'Filé envolvido no bacon.', 42.00, 'https://noespeto.com/wp-content/uploads/2026/07/WhatsApp-Image-2026-07-09-at-10.43.08.jpeg', 0, 7, 1),
+  (2, 'Carne de Sol Simples', 'Carne de sol grelhada com sabor marcante.', 34.00, 'https://imperioacai.com.br/wp-content/uploads/2026/08/IMG_2217-scaled.jpg', 0, 8, 1),
+  (2, 'Filé com Bacon Simples', 'Filé com bacon grelhado, saboroso e suculento.', 37.00, 'https://noespeto.com/wp-content/uploads/2026/07/WhatsApp-Image-2026-07-09-at-10.43.08.jpeg', 0, 9, 1),
+  (2, 'Carne de Sol Completa', 'Carne de sol com acompanhamentos completos da casa.', 39.00, 'https://noespeto.com/wp-content/uploads/2026/07/WhatsApp-Image-2026-07-09-at-10.43.08.jpeg', 0, 10, 1),
+  (2, 'Filé Mignon ao Alho Simples', 'Filé mignon macio com toque especial de alho.', 34.00, 'https://noespeto.com/wp-content/uploads/2026/07/WhatsApp-Image-2026-07-09-at-10.43.08.jpeg', 0, 11, 1),
+  (2, 'Filé Mignon ao Alho Completo', 'Filé mignon ao alho com acompanhamentos completos.', 39.00, 'https://noespeto.com/wp-content/uploads/2026/07/WhatsApp-Image-2026-07-09-at-10.43.08.jpeg', 0, 12, 1),
+  (2, 'Panceta suína Completa', 'Panceta suína crocante.', 30.00, 'https://noespeto.com/wp-content/uploads/2026/07/WhatsApp-Image-2026-07-09-at-10.43.08.jpeg', 0, 13, 1),
+  (2, 'Panceta suína Simples', 'Panceta dourada, crocante e cheia de sabor.', 18.00, 'https://noespeto.com/wp-content/uploads/2026/07/WhatsApp-Image-2026-07-09-at-10.43.08.jpeg', 0, 14, 1),
+  (3, 'Filé de frango na Brasa Simples', 'Filé de frango grelhado na brasa, leve e saboroso.', 18.00, 'https://noespeto.com/wp-content/uploads/2026/07/WhatsApp-Image-2026-07-09-at-10.43.08.jpeg', 0, 1, 1),
+  (3, 'Filé de frango na Brasa Completo', 'Frango na brasa servido com acompanhamentos completos.', 30.00, 'https://noespeto.com/wp-content/uploads/2026/07/WhatsApp-Image-2026-07-09-at-10.43.08.jpeg', 0, 2, 1),
+  (3, 'Tulipa Crocante Simples', 'Tulipa de frango crocante e bem temperada.', 28.00, 'https://noespeto.com/wp-content/uploads/2026/07/WhatsApp-Image-2026-07-09-at-10.43.08.jpeg', 0, 3, 1),
+  (3, 'Tulipa Crocante Completo', 'Tulipa crocante servida com acompanhamentos completos.', 33.00, 'https://noespeto.com/wp-content/uploads/2026/07/WhatsApp-Image-2026-07-09-at-10.43.08.jpeg', 0, 4, 1),
+  (3, 'Frango com Bacon Completo', 'Frango com bacon na brasa e acompanhamentos especiais.', 37.00, 'https://noespeto.com/wp-content/uploads/2026/07/WhatsApp-Image-2026-07-09-at-10.43.08.jpeg', 0, 5, 1),
+  (3, 'Frango com Bacon Simples', 'Frango envolvido no bacon, grelhado no ponto.', 32.00, 'https://noespeto.com/wp-content/uploads/2026/07/WhatsApp-Image-2026-07-09-at-10.43.08.jpeg', 0, 6, 1),
+  (3, 'Coração Simples', 'Coração de frango temperado e preparado na brasa.', 15.00, 'https://noespeto.com/wp-content/uploads/2026/07/WhatsApp-Image-2026-07-09-at-10.43.08.jpeg', 0, 7, 1),
+  (3, 'Coração Completo', 'Coração na brasa com acompanhamentos completos.', 20.00, 'https://noespeto.com/wp-content/uploads/2026/07/WhatsApp-Image-2026-07-09-at-10.43.08.jpeg', 0, 8, 1),
+  (4, 'Picanha Steak', 'Corte especial de picanha, suculento.', 70.00, 'https://noespeto.com/wp-content/uploads/2026/07/WhatsApp-Image-2026-07-09-at-10.43.08.jpeg', 0, 1, 1),
+  (5, 'Arroz Cremoso de Queijos', 'Arroz cremoso com mix de queijos.', 15.00, 'https://imperioacai.com.br/wp-content/uploads/2026/07/ChatGPT-Image-24-de-jul.-de-2026-14_56_34.png', 0, 1, 1),
+  (5, 'Arroz Branco', 'Arroz branco soltinho e tradicional.', 8.00, 'https://noespeto.com/wp-content/uploads/2026/07/WhatsApp-Image-2026-07-09-at-10.43.08.jpeg', 0, 2, 1),
+  (5, 'Arroz Biro Biro', 'Arroz temperado com ingredientes especiais.', 8.00, 'https://imperioacai.com.br/wp-content/uploads/2026/07/ChatGPT-Image-24-de-jul.-de-2026-14_13_50.png', 0, 3, 1),
+  (5, 'Arroz de Brócolis', 'Arroz soltinho com brócolis fresquinho.', 10.00, 'https://noespeto.com/wp-content/uploads/2026/07/WhatsApp-Image-2026-07-09-at-10.43.08.jpeg', 0, 4, 1),
+  (5, 'Baião da Casa', 'Baião saboroso preparado no tempero da casa.', 10.00, 'https://imperioacai.com.br/wp-content/uploads/2026/07/IMG_8809-1-scaled.jpg', 0, 5, 1),
+  (5, 'Vinagrete', 'Vinagrete fresco, leve e bem temperado.', 10.00, 'https://imperioacai.com.br/wp-content/uploads/2026/07/ChatGPT-Image-24-de-jul.-de-2026-14_12_03.png', 0, 6, 1),
+  (5, 'Salada da Casa', 'Salada fresca com ingredientes selecionados.', 15.00, 'https://imperioacai.com.br/wp-content/uploads/2026/07/IMG_9500-scaled.jpg', 0, 7, 1),
+  (5, 'Feijão tropeiro', 'Feijão tropeiro caseiro e bem servido.', 10.00, 'https://imperioacai.com.br/wp-content/uploads/2026/07/IMG_8629-1-scaled.jpg', 0, 8, 1),
+  (5, 'Batata Frita', 'Batatas fritas crocantes e sequinhas.', 18.00, 'https://imperioacai.com.br/wp-content/uploads/2026/07/IMG_9712-scaled.jpg', 0, 9, 1),
+  (5, 'Farofa Crocante', 'Farofa crocante, bem temperada e cheia de sabor.', 8.00, 'https://imperioacai.com.br/wp-content/uploads/2026/07/ChatGPT-Image-24-de-jul.-de-2026-14_09_42.png', 0, 10, 1),
+  (5, 'Farofa de Ovo', 'Farofa de ovo feita no capricho.', 13.00, 'https://noespeto.com/wp-content/uploads/2026/07/WhatsApp-Image-2026-07-09-at-10.43.08.jpeg', 0, 11, 1),
+  (5, 'Macaxeira na Manteiga', 'Macaxeira macia finalizada na manteiga.', 9.00, 'https://imperioacai.com.br/wp-content/uploads/2026/07/IMG_8622-1-scaled.jpg', 0, 12, 1),
+  (5, 'Pão de Alho', 'Pão de alho assado, cremoso e saboroso.', 8.00, 'https://imperioacai.com.br/wp-content/uploads/2026/07/IMG_2541-1-scaled.jpg', 0, 13, 1),
+  (6, 'Água H2O 500 ML', 'Água leve e refrescante para acompanhar sua refeição.', 6.00, 'https://imperioacai.com.br/wp-content/uploads/2026/07/01.png', 0, 1, 1),
+  (6, 'Água com Limão 500 ML', 'Água refrescante com toque suave de limão.', 6.00, 'https://noespeto.com/wp-content/uploads/2026/07/WhatsApp-Image-2026-07-09-at-10.43.08.jpeg', 0, 2, 1),
+  (6, 'Limoneto 500 ML', 'Bebida cítrica e gelada, ideal para refrescar.', 6.00, 'https://imperioacai.com.br/wp-content/uploads/2026/07/02.png', 0, 3, 1),
+  (6, 'Água Mineral 500 ML', 'Água mineral gelada, simples e essencial.', 5.00, 'https://imperioacai.com.br/wp-content/uploads/2026/07/09.png', 0, 4, 1),
+  (6, 'Coca Cola 350 ML', 'Refrigerante clássico, gelado e refrescante.', 7.00, 'https://imperioacai.com.br/wp-content/uploads/2026/07/03.png', 0, 5, 1),
+  (6, 'Coca Cola Zero 350 ML', 'Coca-Cola sem açúcar, gelada e saborosa.', 7.00, 'https://imperioacai.com.br/wp-content/uploads/2026/07/04.png', 0, 6, 1),
+  (6, 'Guaraná Zero 350 ML', 'Guaraná sem açúcar, leve e refrescante.', 7.00, 'https://imperioacai.com.br/wp-content/uploads/2026/07/11.png', 0, 7, 1),
+  (6, 'Coca Cola Retornável 290 ML', 'Coca-Cola retornável gelada para acompanhar seu pedido.', 8.00, 'https://imperioacai.com.br/wp-content/uploads/2026/07/05.png', 0, 8, 1),
+  (6, 'Suco Natural', 'Suco natural fresco, leve e saboroso.', 8.00, 'https://noespeto.com/wp-content/uploads/2026/07/WhatsApp-Image-2026-07-09-at-10.43.08.jpeg', 0, 9, 1),
+  (6, 'Cerveja Heineken 330 ML', 'Cerveja premium gelada, leve e marcante.', 12.00, 'https://imperioacai.com.br/wp-content/uploads/2026/07/10.png', 0, 10, 1),
+  (6, 'Cerveja Michelob Ultra 330 ML', 'Cerveja leve, refrescante e equilibrada.', 12.00, 'https://imperioacai.com.br/wp-content/uploads/2026/07/06.png', 0, 11, 1),
+  (6, 'Cerveja Stella Gold 330 ML', 'Cerveja suave, dourada e refrescante.', 12.00, 'https://imperioacai.com.br/wp-content/uploads/2026/07/07.png', 0, 12, 1),
+  (6, 'Cerveja Corona 330 ML', 'Cerveja leve e refrescante, perfeita para momentos especiais.', 12.00, 'https://imperioacai.com.br/wp-content/uploads/2026/07/08.png', 0, 13, 1),
+  (6, 'Chopp Cabôca 300 ML', 'Chopp gelado, leve e cremoso na medida certa.', 10.00, 'https://noespeto.com/wp-content/uploads/2026/07/WhatsApp-Image-2026-07-09-at-10.43.08.jpeg', 0, 14, 1),
+  (7, 'Pudim', 'Pudim cremoso, doce e perfeito para finalizar.', 10.00, 'https://imperioacai.com.br/wp-content/uploads/2026/07/ChatGPT-Image-24-de-jul.-de-2026-14_36_59.png', 0, 1, 1),
+  (8, 'Açaí Tradicional 500ml', 'Acompanhamentos:açúcar, farinha de bragança ou farinha de tapioca.', 20.00, 'https://imperioacai.com.br/wp-content/uploads/2026/08/ChatGPT-Image-8-de-ago.-de-2026-11_17_12.png', 1, 1, 1),
+  (8, 'Açaí Tradicional 1,5 litro', 'Acompanhamentos:açúcar, farinha de bragança ou farinha de tapioca.', 60.00, 'https://imperioacai.com.br/wp-content/uploads/2026/08/ChatGPT-Image-8-de-ago.-de-2026-11_17_12.png', 1, 2, 1),
+  (8, 'Açaí 500ml ou 1,5 litro com calabresa frita', 'Açaí cremoso acompanhado de calabresa frita', 105.00, 'https://imperioacai.com.br/wp-content/uploads/2026/08/ChatGPT-Image-11-de-ago.-de-2026-17_11_15.png', 1, 3, 1),
+  (8, 'Açaí 500ml ou 1,5 litro com tiras de charque', 'Açaí cremoso acompanhado de charque.', 40.00, 'https://imperioacai.com.br/wp-content/uploads/2026/08/ChatGPT-Image-13-de-ago.-de-2026-16_18_13.png', 1, 4, 1),
+  (8, 'Açaí 500ml ou 1,5 litro com tiras de carne de sol', 'Açaí cremoso acompanhado de tiras de carne de sol.', 40.00, 'https://imperioacai.com.br/wp-content/uploads/2026/08/ChatGPT-Image-13-de-ago.-de-2026-16_21_05.png', 1, 5, 1);
+
+INSERT INTO banners (title, image_url, link_url, sort_order, active) VALUES
+  ('Novidade Império Açaí', 'https://imperioacai.com.br/wp-content/uploads/2026/07/IMG_9500-scaled.jpg', NULL, 1, 1),
+  ('Parmegiana Império Açaí', 'https://imperioacai.com.br/wp-content/uploads/2026/07/IMG_9567-scaled.jpg', NULL, 2, 1),
+  ('Carne Império Açaí', 'https://imperioacai.com.br/wp-content/uploads/2026/07/IMG_9507-1-scaled.jpg', NULL, 3, 1),
+  ('Petiscos Império Açaí', 'https://imperioacai.com.br/wp-content/uploads/2026/07/IMG_9712-scaled.jpg', NULL, 4, 1);
+
+INSERT INTO links (label, url, icon, is_primary, sort_order, active) VALUES
+  ('Cardápio Online', '/cardapio', 'utensils', 1, 1, 1),
+  ('Pedir pelo WhatsApp', 'https://wa.me/5591992910573', 'whatsapp', 0, 2, 1),
+  ('Instagram', 'https://www.instagram.com/imperioacai/', 'instagram', 0, 3, 1),
+  ('Como chegar', 'https://www.google.com/maps/search/?api=1&query=Tv.%20Mil%20Novecentos%20e%20Sessenta%20e%20Tr%C3%AAs%2C%202703%20-%20Estrela%2C%20Castanhal%20-%20PA%2C%2068742-238', 'map-pin', 0, 4, 1);
+
+INSERT INTO settings (`key`, `value`) VALUES
+  ('site_name', 'Império Açaí'),
+  ('tagline', 'O melhor do açaí e delícias em Castanhal/PA'),
+  ('logo_url', 'https://vw2digital.com.br/wp-content/uploads/2026/06/imperio-acai-logo.png'),
+  ('whatsapp_number', '5591992910573'),
+  ('whatsapp_display', '(91) 99291-0573'),
+  ('instagram_handle', 'imperioacai'),
+  ('address', 'Tv. Mil Novecentos e Sessenta e Três, 2703 - Estrela, Castanhal - PA, 68742-238'),
+  ('maps_url', 'https://www.google.com/maps/search/?api=1&query=Tv.%20Mil%20Novecentos%20e%20Sessenta%20e%20Tr%C3%AAs%2C%202703%20-%20Estrela%2C%20Castanhal%20-%20PA%2C%2068742-238'),
+  ('maps_embed_url', 'https://www.google.com/maps?q=Tv.%20Mil%20Novecentos%20e%20Sessenta%20e%20Tr%C3%AAs%2C%202703%20-%20Estrela%2C%20Castanhal%20-%20PA%2C%2068742-238&output=embed'),
+  ('opening_hours', ''),
+  ('new_arrivals_title', 'Acabaram de chegar'),
+  ('footer_credit_label', 'Agência VW2'),
+  ('footer_credit_url', 'https://www.instagram.com/agenciavw2/'),
+  ('primary_color', '#8a1c1c');
+
+-- Usuario admin padrao: admin@imperioacai.com.br / admin123 (troque apos o primeiro login)
+INSERT INTO users (name, email, password_hash) VALUES
+  ('Administrador', 'admin@imperioacai.com.br', '$2y$10$MEOKOlsCZ5dIw7bwWoI43.WDT5SzPx6OLxZWutpZB.TymAUWr.FmW');

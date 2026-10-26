@@ -1,0 +1,73 @@
+.filters {
+  display: grid;
+  grid-template-columns: 1fr 240px;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+@media (max-width: 640px) {
+  .filters {
+    grid-template-columns: 1fr;
+  }
+}
+
+.name {
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.desc {
+  font-size: 12px;
+  color: var(--text-3);
+  max-width: clamp(140px, 22vw, 360px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.price {
+  font-weight: 600;
+  color: var(--primary);
+  white-space: nowrap;
+}
+
+.inactive td {
+  opacity: 0.55;
+}
+
+.inactive td:nth-last-child(-n + 2) {
+  opacity: 1;
+}
+
+.rowActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 2px;
+}
+
+.tip {
+  margin-top: 10px;
+  font-size: 12px;
+  color: var(--text-3);
+}
+
+.switchRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  padding: 8px 0;
+  cursor: pointer;
+}
+
+.serverError {
+  margin-top: 12px;
+  font-size: 13px;
+  color: var(--danger);
+  background: #fbe6e3;
+  padding: 10px 12px;
+  border-radius: 10px;
+}

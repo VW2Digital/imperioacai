@@ -1,0 +1,2 @@
+# Caso a pasta app/ seja colocada dentro do public_html, bloqueia acesso direto.
+Require all denied

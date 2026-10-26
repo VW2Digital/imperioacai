@@ -1,0 +1,15 @@
+node_modules
+dist
+.DS_Store
+*.log
+
+# build gerado pelo Vite dentro de public/
+public/index.html
+public/assets/
+
+# uploads e configuracao local
+public/uploads/*
+!public/uploads/.gitkeep
+app/config.php
+.env
+.env.local

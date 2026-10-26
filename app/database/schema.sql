@@ -1,0 +1,93 @@
+-- Império Açaí - Cardápio Digital
+-- Schema MySQL 8 (compativel com MariaDB 10.4+ da Hostinger)
+
+SET NAMES utf8mb4;
+SET time_zone = '+00:00';
+
+CREATE TABLE IF NOT EXISTS categories (
+  id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  slug VARCHAR(80) NOT NULL,
+  name VARCHAR(120) NOT NULL,
+  image_url VARCHAR(500) DEFAULT NULL,
+  sort_order INT NOT NULL DEFAULT 0,
+  active TINYINT(1) NOT NULL DEFAULT 1,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  UNIQUE KEY uq_categories_slug (slug)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS products (
+  id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  category_id INT UNSIGNED NOT NULL,
+  name VARCHAR(160) NOT NULL,
+  description TEXT,
+  price DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+  image_url VARCHAR(500) DEFAULT NULL,
+  is_new TINYINT(1) NOT NULL DEFAULT 0,
+  sort_order INT NOT NULL DEFAULT 0,
+  active TINYINT(1) NOT NULL DEFAULT 1,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  KEY idx_products_category (category_id),
+  CONSTRAINT fk_products_category FOREIGN KEY (category_id) REFERENCES categories (id) ON DELETE RESTRICT ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS banners (
+  id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  title VARCHAR(160) DEFAULT NULL,
+  image_url VARCHAR(500) NOT NULL,
+  link_url VARCHAR(500) DEFAULT NULL,
+  sort_order INT NOT NULL DEFAULT 0,
+  active TINYINT(1) NOT NULL DEFAULT 1,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Arvore de links (pagina inicial estilo Linktree)
+CREATE TABLE IF NOT EXISTS links (
+  id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  label VARCHAR(120) NOT NULL,
+  url VARCHAR(500) NOT NULL,
+  icon VARCHAR(40) DEFAULT NULL,
+  is_primary TINYINT(1) NOT NULL DEFAULT 0,
+  sort_order INT NOT NULL DEFAULT 0,
+  active TINYINT(1) NOT NULL DEFAULT 1,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS settings (
+  `key` VARCHAR(60) NOT NULL,
+  `value` TEXT,
+  PRIMARY KEY (`key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Visitas e cliques da arvore de links e do cardapio.
+-- created_at e horario de Brasilia (America/Sao_Paulo), gravado pela aplicacao.
+CREATE TABLE IF NOT EXISTS analytics_events (
+  id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  surface VARCHAR(16) NOT NULL,
+  kind VARCHAR(16) NOT NULL,
+  target_type VARCHAR(32) NOT NULL,
+  target_id INT UNSIGNED DEFAULT NULL,
+  target_label VARCHAR(160) NOT NULL DEFAULT '',
+  visitor_id CHAR(32) NOT NULL,
+  created_at DATETIME NOT NULL,
+  PRIMARY KEY (id),
+  KEY idx_analytics_period (surface, kind, created_at),
+  KEY idx_analytics_visitor (visitor_id, surface, kind, created_at)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS users (
+  id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  name VARCHAR(120) NOT NULL,
+  email VARCHAR(190) NOT NULL,
+  password_hash VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  UNIQUE KEY uq_users_email (email)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

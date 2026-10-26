@@ -1,0 +1,58 @@
+services:
+  php:
+    build:
+      context: ./docker
+      dockerfile: php.Dockerfile
+    container_name: imperioacai_php
+    ports:
+      - "8090:80"
+    volumes:
+      - ./public:/var/www/html/public
+      - ./app:/var/www/html/app
+    environment:
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_NAME: imperioacai
+      DB_USER: imperioacai
+      DB_PASS: imperioacai
+      APP_KEY: dev-secret-change-me
+      APP_ENV: local
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  mysql:
+    image: mysql:8.0
+    container_name: imperioacai_mysql
+    command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: imperioacai
+      MYSQL_USER: imperioacai
+      MYSQL_PASSWORD: imperioacai
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./app/database/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+      - ./app/database/seed.sql:/docker-entrypoint-initdb.d/02-seed.sql:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: imperioacai_phpmyadmin
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: mysql
+      PMA_USER: root
+      PMA_PASSWORD: root
+    depends_on:
+      - mysql
+
+volumes:
+  mysql_data:

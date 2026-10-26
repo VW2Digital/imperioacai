@@ -1,0 +1,37 @@
+.stack {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 1000;
+  max-width: calc(100vw - 32px);
+}
+
+.toast {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  background: #1f1a1a;
+  color: #fff;
+  box-shadow: var(--shadow-lg);
+  font-size: 14px;
+  animation: fadeUp 0.25s ease;
+  min-width: 240px;
+}
+
+.toast button {
+  margin-left: auto;
+  color: rgba(255, 255, 255, 0.7);
+  display: flex;
+}
+
+.success svg:first-child {
+  color: #5fd38d;
+}
+.error svg:first-child {
+  color: #ff8a7a;
+}
