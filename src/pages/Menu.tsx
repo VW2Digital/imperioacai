@@ -212,7 +212,7 @@ export default function MenuPage() {
           {settings.whatsapp_number && (
             <a
               className={styles.fab}
-              href={whatsappLink(settings.whatsapp_number, "Olá! Vim pelo cardápio online.")}
+              href={whatsappLink(settings.whatsapp_number)}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Falar no WhatsApp"

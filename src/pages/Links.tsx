@@ -10,6 +10,9 @@ import { LinkIconByName, WhatsAppIcon } from "../components/ui/icons";
 import styles from "./Links.module.css";
 
 function LinkButton({ item }: { item: LinkItem }) {
+  const url = /^https:\/\/wa\.me\/\d+\/?(?:\?.*)?$/.test(item.url)
+    ? whatsappLink(new URL(item.url).pathname)
+    : item.url;
   const className = `${styles.link} ${item.is_primary ? styles.primary : ""}`;
   const size = item.is_primary ? 22 : 20;
   const onClick = () => trackClick("links", "link", item.id);
@@ -31,7 +34,7 @@ function LinkButton({ item }: { item: LinkItem }) {
     );
   }
   return (
-    <a href={item.url} target="_blank" rel="noopener noreferrer" className={className} onClick={onClick}>
+    <a href={url} target="_blank" rel="noopener noreferrer" className={className} onClick={onClick}>
       {content}
     </a>
   );
@@ -63,12 +66,10 @@ export default function LinksPage() {
             {settings.isLoading ? (
               <span className={`skeleton ${styles.logoSkeleton}`} />
             ) : (
-              <SmartImage src={s.logo_url} alt={s.site_name ?? "Império Açaí"} className={styles.logo} loading="eager" />
+              <SmartImage src="/logo.png" alt={s.site_name ?? "Império Açaí"} className={styles.logo} loading="eager" />
             )}
           </div>
           <h1 className={styles.title}>{s.site_name ?? "Império Açaí"}</h1>
-          {s.tagline && <p className={styles.tagline}>{s.tagline}</p>}
-          {s.opening_hours && <p className={styles.hours}>{s.opening_hours}</p>}
         </header>
 
         <nav className={styles.links} aria-label="Links">

@@ -54,7 +54,7 @@ p {
 }
 
 :focus-visible {
-  outline: 3px solid rgba(138, 28, 28, 0.35);
+  outline: 3px solid rgba(70, 20, 68, 0.35);
   outline-offset: 2px;
   border-radius: 6px;
 }

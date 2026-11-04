@@ -38,7 +38,7 @@ export class ErrorBoundary extends Component<Props, State> {
           color: "#2a1e1e",
           textAlign: "center"
         }}>
-          <h1 style={{ fontSize: "1.75rem", fontWeight: 700, marginBottom: "0.75rem", color: "#8a1c1c" }}>
+          <h1 style={{ fontSize: "1.75rem", fontWeight: 700, marginBottom: "0.75rem", color: "#461444" }}>
             Império Açaí
           </h1>
           <p style={{ fontSize: "1.1rem", marginBottom: "1.5rem", color: "#666" }}>
@@ -52,14 +52,14 @@ export class ErrorBoundary extends Component<Props, State> {
             maxWidth: "480px",
             marginBottom: "1.5rem",
             fontSize: "0.9rem",
-            color: "#8a1c1c"
+            color: "#461444"
           }}>
             {this.state.error?.message || "Erro desconhecido"}
           </div>
           <button
             onClick={() => window.location.reload()}
             style={{
-              background: "#8a1c1c",
+              background: "#461444",
               color: "#fff",
               border: "none",
               padding: "0.75rem 1.75rem",
@@ -67,7 +67,7 @@ export class ErrorBoundary extends Component<Props, State> {
               fontWeight: 600,
               fontSize: "1rem",
               cursor: "pointer",
-              boxShadow: "0 2px 8px rgba(138, 28, 28, 0.3)"
+              boxShadow: "0 2px 8px rgba(70, 20, 68, 0.3)"
             }}
           >
             Recarregar página

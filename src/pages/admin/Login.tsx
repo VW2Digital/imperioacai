@@ -42,7 +42,7 @@ export default function LoginPage() {
     <main className={styles.page}>
       <form className={styles.card} onSubmit={onSubmit} noValidate>
         <div className={styles.brand}>
-          <span>IA</span>
+          <img src="/logo-horizontal.png" alt="Império Açaí" className={styles.logoImg} />
           <h1>Painel Império Açaí</h1>
           <p>Entre para gerenciar o cardápio</p>
         </div>

@@ -7,9 +7,14 @@ final class Upload
 {
     private const ALLOWED = [
         'image/jpeg' => 'jpg',
+        'image/pjpeg' => 'jpg',
         'image/png' => 'png',
+        'image/x-png' => 'png',
         'image/webp' => 'webp',
         'image/gif' => 'gif',
+        'image/svg+xml' => 'svg',
+        'image/avif' => 'avif',
+        'image/bmp' => 'bmp',
     ];
 
     /**
@@ -26,17 +31,19 @@ final class Upload
         }
 
         $cfg = config()['uploads'];
-        $maxBytes = (int) $cfg['max_mb'] * 1024 * 1024;
+        $maxMb = (int) ($cfg['max_mb'] ?? 25);
+        $maxBytes = $maxMb * 1024 * 1024;
         if ($file['size'] > $maxBytes) {
-            throw HttpException::unprocessable("Imagem muito grande. Máximo: {$cfg['max_mb']} MB.");
+            throw HttpException::unprocessable("Imagem muito grande. Máximo: {$maxMb} MB.");
         }
 
         $finfo = new \finfo(FILEINFO_MIME_TYPE);
         $mime = $finfo->file($file['tmp_name']) ?: '';
         if (!isset(self::ALLOWED[$mime])) {
-            throw HttpException::unprocessable('Formato inválido. Use JPG, PNG, WEBP ou GIF.');
+            throw HttpException::unprocessable('Formato inválido. Use JPG, PNG, WEBP, GIF, SVG ou AVIF.');
         }
-        if (@getimagesize($file['tmp_name']) === false) {
+
+        if ($mime !== 'image/svg+xml' && @getimagesize($file['tmp_name']) === false) {
             throw HttpException::unprocessable('O arquivo não é uma imagem válida.');
         }
 

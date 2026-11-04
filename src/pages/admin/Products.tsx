@@ -39,6 +39,30 @@ interface Form {
 
 const EMPTY: Form = { category_id: "", name: "", description: "", price: "", image_url: null, is_new: false, active: true };
 
+function formatPriceInput(value: number | string | null | undefined): string {
+  if (value == null || value === "") return "";
+  if (typeof value === "number") return value.toFixed(2).replace(".", ",");
+  const s = String(value).trim();
+  if (s.includes(",")) {
+    const n = parseFloat(s.replace(/\./g, "").replace(",", "."));
+    return Number.isFinite(n) ? n.toFixed(2).replace(".", ",") : s;
+  }
+  const n = parseFloat(s);
+  return Number.isFinite(n) ? n.toFixed(2).replace(".", ",") : s;
+}
+
+function parsePriceInput(value: string | number | null | undefined): number {
+  if (value == null || value === "") return 0;
+  if (typeof value === "number") return Number.isFinite(value) ? value : 0;
+  const s = String(value).replace(/[^\d.,]/g, "").trim();
+  if (s.includes(",")) {
+    const n = parseFloat(s.replace(/\./g, "").replace(",", "."));
+    return Number.isFinite(n) ? n : 0;
+  }
+  const n = parseFloat(s);
+  return Number.isFinite(n) ? n : 0;
+}
+
 export default function ProductsPage() {
   const products = useAdminList<Product>("products");
   const categories = useAdminList<Category>("categories");
@@ -185,14 +209,15 @@ export default function ProductsPage() {
           const payload = {
             ...data,
             category_id: Number(data.category_id),
-            description: data.description || null,
+            price: parsePriceInput(data.price),
+            description: data.description ? data.description.trim() : null,
           };
           if (editing && editing !== "new") {
             await update.mutateAsync({ id: editing.id, data: payload });
-            toast.success("Prato atualizado.");
+            toast.success("Prato atualizado com sucesso.");
           } else {
             await create.mutateAsync(payload);
-            toast.success("Prato criado.");
+            toast.success("Prato criado com sucesso.");
           }
           setEditing(null);
         }}
@@ -223,20 +248,36 @@ function ProductForm({
   onClose: () => void;
   onSubmit: (data: Form) => Promise<void>;
 }) {
-  const { register, handleSubmit, control, setError, formState } = useForm<Form>({
+  const { register, handleSubmit, control, setError, reset, formState } = useForm<Form>({
     defaultValues: product
       ? {
           category_id: product.category_id,
           name: product.name,
           description: product.description ?? "",
-          price: Number(product.price || 0).toFixed(2).replace(".", ","),
+          price: formatPriceInput(product.price),
           image_url: product.image_url,
-          is_new: product.is_new,
-          active: product.active,
+          is_new: Boolean(product.is_new),
+          active: Boolean(product.active),
         }
       : EMPTY,
   });
   const [serverError, setServerError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (product) {
+      reset({
+        category_id: product.category_id,
+        name: product.name,
+        description: product.description ?? "",
+        price: formatPriceInput(product.price),
+        image_url: product.image_url,
+        is_new: Boolean(product.is_new),
+        active: Boolean(product.active),
+      });
+    } else {
+      reset(EMPTY);
+    }
+  }, [product, reset]);
 
   useEffect(() => setServerError(null), [open]);
 
@@ -249,7 +290,7 @@ function ProductForm({
         setServerError(e.message);
         Object.entries(e.details ?? {}).forEach(([field, msg]) => setError(field as keyof Form, { message: msg }));
       } else {
-        setServerError("Erro inesperado.");
+        setServerError("Erro inesperado ao salvar.");
       }
     }
   });

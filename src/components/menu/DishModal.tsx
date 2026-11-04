@@ -32,7 +32,7 @@ export default function DishModal({ product, settings, onClose }: Props) {
   if (!product) return null;
 
   const wa = settings.whatsapp_number
-    ? whatsappLink(settings.whatsapp_number, `Olá! Gostaria de pedir: ${product.name} (${formatPrice(product.price)}).`)
+    ? whatsappLink(settings.whatsapp_number, `Olá, Império Açaí! Gostaria de pedir:\n\n${product.name} — ${formatPrice(product.price)}\n\nEstá disponível?`)
     : null;
 
   return (

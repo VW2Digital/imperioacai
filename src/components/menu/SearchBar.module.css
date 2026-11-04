@@ -31,7 +31,7 @@
 
 .bar input:focus {
   border-color: var(--primary-light);
-  box-shadow: 0 0 0 4px rgba(138, 28, 28, 0.1);
+  box-shadow: 0 0 0 4px rgba(70, 20, 68, 0.12);
 }
 
 .clear {

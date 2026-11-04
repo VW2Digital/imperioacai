@@ -70,7 +70,7 @@
 .primaryBtn {
   background: var(--primary);
   color: #fff;
-  box-shadow: 0 8px 20px rgba(138, 28, 28, 0.28);
+  box-shadow: 0 8px 20px rgba(70, 20, 68, 0.28);
 }
 
 .primaryBtn:hover {
@@ -84,7 +84,7 @@
 }
 
 .ghostBtn:hover {
-  background: #f0dddd;
+  background: #ebddeb;
 }
 
 .frameWrap {

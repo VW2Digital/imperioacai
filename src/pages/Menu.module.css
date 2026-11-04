@@ -34,7 +34,7 @@
 
 .logo {
   height: 44px;
-  width: auto;
+  width: 148px;
   object-fit: contain;
 }
 
@@ -142,32 +142,34 @@ section.banners {
 .grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
+  gap: 16px;
 }
 
 @media (min-width: 640px) {
   .grid {
-    gap: 16px;
+    gap: 20px;
   }
 }
 @media (min-width: 768px) {
   .grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
   }
 }
 @media (min-width: 1024px) {
   .grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 28px;
   }
 }
 
 /* Trilho horizontal de novidades */
 .rail {
   display: flex;
-  gap: 12px;
+  gap: 16px;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-  padding: 4px 4px 12px;
+  padding: 6px 4px 16px;
   margin: 0 -4px;
   scrollbar-width: none;
 }

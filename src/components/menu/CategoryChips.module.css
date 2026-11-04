@@ -32,20 +32,23 @@
 }
 
 .thumb {
-  width: 50px;
-  height: 50px;
+  width: 64px;
+  height: 64px;
   border-radius: 14px;
   overflow: hidden;
   display: grid;
   place-items: center;
-  background: var(--surface-2);
+  background: #ffffff;
+  border: 1px solid var(--border);
   color: var(--primary);
+  padding: 0;
 }
 
 .thumb img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  transform: scale(1.15);
 }
 
 .name {
@@ -85,6 +88,10 @@
   color: var(--primary);
 }
 .active .thumb {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px var(--primary);
+}
+.active .thumb:has(svg) {
   background: var(--primary);
   color: #fff;
 }
@@ -101,8 +108,8 @@
     max-width: 96px;
   }
   .thumb {
-    width: 56px;
-    height: 56px;
+    width: 72px;
+    height: 72px;
   }
   .name {
     font-size: 12px;

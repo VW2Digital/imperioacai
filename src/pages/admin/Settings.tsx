@@ -100,10 +100,10 @@ export default function SettingsPage() {
         <Card>
           <h2 className={styles.sectionTitle}>Contato</h2>
           <FormGrid>
-            <Field label="WhatsApp (somente números, com DDI)" hint="Ex.: 5591992910573">
+            <Field label="WhatsApp (somente números, com DDI)" hint="Ex.: 5591993726801">
               <Input inputMode="numeric" {...register("whatsapp_number")} />
             </Field>
-            <Field label="WhatsApp (como exibir)" hint="Ex.: (91) 99291-0573">
+            <Field label="WhatsApp (como exibir)" hint="Ex.: (91) 99372-6801">
               <Input {...register("whatsapp_display")} />
             </Field>
             <Field label="Instagram (sem @)">
