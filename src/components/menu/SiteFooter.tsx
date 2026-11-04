@@ -1,10 +1,9 @@
-import { Instagram, MapPin, UtensilsCrossed } from "lucide-react";
+import { Instagram, MapPin } from "lucide-react";
 import { Link } from "react-router-dom";
 import type { Settings } from "../../lib/types";
 import { whatsappLink } from "../../lib/format";
 import { trackClick } from "../../lib/track";
 import { WhatsAppIcon } from "../ui/icons";
-import SmartImage from "../ui/SmartImage";
 import styles from "./SiteFooter.module.css";
 
 export default function SiteFooter({ settings }: { settings: Settings }) {
@@ -14,22 +13,6 @@ export default function SiteFooter({ settings }: { settings: Settings }) {
     <footer className={styles.footer}>
       <div className="container">
         <div className={styles.top}>
-          <div className={styles.brand}>
-            {settings.logo_url ? (
-              <span className={styles.logo}>
-                <SmartImage src={settings.logo_url} alt={name} />
-              </span>
-            ) : (
-              <span className={styles.logoFallback}>
-                <UtensilsCrossed size={22} />
-              </span>
-            )}
-            <div>
-              <strong>{name}</strong>
-              {settings.tagline && <p>{settings.tagline}</p>}
-            </div>
-          </div>
-
           <div className={styles.contacts}>
             {settings.whatsapp_number && (
               <a

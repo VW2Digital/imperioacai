@@ -161,7 +161,7 @@
 
 @media (min-width: 1024px) {
   .top {
-    grid-template-columns: minmax(260px, 340px) 1fr;
+    grid-template-columns: 1fr;
     align-items: center;
     gap: 48px;
   }
